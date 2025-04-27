@@ -1,0 +1,27 @@
+# Terraform files
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfvars
+crash.log
+*.backup
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraform/
+.terraform.lock.hcl
+
+# Terragrunt cache
+.terragrunt-cache/
+
+# Sensitive variable files 
+*.auto.tfvars
+*.auto.tfvars.json
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
