@@ -1,3 +1,4 @@
+#Terraform state file backend configuration
 remote_state {
   backend = "azurerm"
   config = {
