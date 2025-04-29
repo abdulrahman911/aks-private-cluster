@@ -81,13 +81,13 @@ Repeat for:
 ⚠️ **Make sure to deploy in order**: network → bastion → jumpbox → aks
 
 OR To deploy only Dev or Prod infra follow respective directory and Run following command
+
 ```bash
 cd environments/dev/ or cd environments/prod/
 terragrunt run-all init
 terragrunt run-all plan
 terragrunt run-all apply
 ```
-
 
 ---
 
@@ -188,7 +188,10 @@ admin_group_object_ids = split(",", get_env("AZURE_ADMIN_GROUP_OBJECT_IDS"))
 
 ## 👤 Developed & Maintained By
 
-**Abdul Rahman UK**  
-[**LinkedIn**](https://www.linkedin.com/in/abdul-rahman-uk/)  
-[**Blog**](https://www.abdulrahmanuk.com)
+<!-- **Abdul Rahman UK**
+[**LinkedIn**](https://www.linkedin.com/in/abdul-rahman-uk/)
+[**Blog**](https://www.abdulrahmanuk.com) -->
 
+**Abdul Rahman UK**  
+LinkedIn: [www.linkedin.com/in/abdul-rahman-uk](https://www.linkedin.com/in/abdul-rahman-uk)  
+Blog: [www.abdulrahmanuk.com](https://www.abdulrahmanuk.com)
