@@ -1,3 +1,4 @@
+# Include the root terragrunt configuration
 include {
   path = find_in_parent_folders("root.hcl")
 }
@@ -6,10 +7,12 @@ locals {
     environment = "dev"
 }
 
+# Configure terraform source network module
 terraform {
   source = "../../../modules/network"
 }
 
+# Input variables for the Network module
 inputs = {
   location               = "UAE North"
   resource_group_name    = "${local.environment}-rg-infra"
