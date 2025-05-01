@@ -1,4 +1,4 @@
 locals {
-  environment = "dev"
+  environment = "production"
   location    = "UAE North"
   }
