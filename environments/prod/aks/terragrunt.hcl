@@ -5,8 +5,10 @@ include {
 
 # Set local environment variable
 locals {
-  environment = "production"
-}
+  env_vars = read_terragrunt_config(find_in_parent_folders("env.hcl"))
+  environment = local.env_vars.locals.environment
+  location  = local.env_vars.locals.location
+} 
 
 # Define dependency on the network module
 dependency "network" {
@@ -16,7 +18,6 @@ dependency "network" {
   mock_outputs = {
     aks_subnet_id       = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/mock-rg/providers/Microsoft.Network/virtualNetworks/mock-vnet/subnets/mock-subnet-id-aks"
     resource_group_name = "production-rg-infra"
-    location = "UAE North" 
   }
   mock_outputs_allowed_terraform_commands = ["init", "plan"]
 }
@@ -36,7 +37,7 @@ dependencies {
 # Inputs for the AKS cluster module
 inputs = {
   name                    = "${local.environment}-aks-cluster"
-  location                = dependency.network.outputs.location
+  location                = local.location
   resource_group_name     = dependency.network.outputs.resource_group_name
   dns_prefix              = "${local.environment}-aks"
   kubernetes_version      = "1.31.7"

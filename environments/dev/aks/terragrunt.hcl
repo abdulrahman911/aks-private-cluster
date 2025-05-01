@@ -3,10 +3,12 @@ include {
   path = find_in_parent_folders("root.hcl")
 }
 
-# Set local environment variable
+# Set local values for this configuration
 locals {
-  environment = "dev"
-}
+  env_vars = read_terragrunt_config(find_in_parent_folders("env.hcl"))
+  environment = local.env_vars.locals.environment
+  location  = local.env_vars.locals.location
+}  
 
 # Define dependency on the network module
 dependency "network" {
@@ -16,7 +18,6 @@ dependency "network" {
   mock_outputs = {
     aks_subnet_id       = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/mock-rg/providers/Microsoft.Network/virtualNetworks/mock-vnet/subnets/mock-subnet-id-aks"
     resource_group_name = "dev-rg-infra"
-    location = "UAE North" 
   }
   mock_outputs_allowed_terraform_commands = ["init", "plan"]
 }

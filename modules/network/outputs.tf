@@ -3,15 +3,15 @@ output "vnet_id" {
 }
 
 output "aks_subnet_id" {
-  value = azurerm_subnet.aks.id
+  value = azurerm_subnet.subnets["dev-aks-subnet"].id
 }
 
 output "jumpbox_subnet_id" {
-  value = azurerm_subnet.jumpbox.id
+  value = azurerm_subnet.subnets["dev-jumpbox-subnet"].id
 }
 
 output "bastion_subnet_id" {
-  value = azurerm_subnet.bastion.id
+  value = azurerm_subnet.subnets["AzureBastionSubnet"].id
 }
 
 output "resource_group_name" {

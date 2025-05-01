@@ -17,27 +17,39 @@ resource "azurerm_virtual_network" "vnet" {
   resource_group_name = azurerm_resource_group.network.name
 }
 
-# Create a Subnet for AKS (Azure Kubernetes Service)
-resource "azurerm_subnet" "aks" {
-  name                 = var.aks_subnet_name
+# Create Subnets dynamically
+resource "azurerm_subnet" "subnets" {
+  for_each = {
+    for subnet in var.subnets : subnet.name => subnet
+  }
+
+  name                 = each.value.name
+  address_prefixes     = [each.value.prefix]
   resource_group_name  = azurerm_resource_group.network.name
   virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = var.aks_subnet_prefixes
 }
 
-# Create a Subnet for Jumpbox (for admin access)
-resource "azurerm_subnet" "jumpbox" {
-  name                 = var.jumpbox_subnet_name
-  resource_group_name  = azurerm_resource_group.network.name
-  virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = var.jumpbox_subnet_prefixes
-}
+# # Create a Subnet for AKS (Azure Kubernetes Service)
+# resource "azurerm_subnet" "aks" {
+#   name                 = var.aks_subnet_name
+#   resource_group_name  = azurerm_resource_group.network.name
+#   virtual_network_name = azurerm_virtual_network.vnet.name
+#   address_prefixes     = var.aks_subnet_prefixes
+# }
 
-# Create a Subnet for Azure Bastion (for secure VM access)
-resource "azurerm_subnet" "bastion" {
-  name                 = var.bastion_subnet_name
-  resource_group_name  = azurerm_resource_group.network.name
-  virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = var.bastion_subnet_prefixes
-}
+# # Create a Subnet for Jumpbox (for admin access)
+# resource "azurerm_subnet" "jumpbox" {
+#   name                 = var.jumpbox_subnet_name
+#   resource_group_name  = azurerm_resource_group.network.name
+#   virtual_network_name = azurerm_virtual_network.vnet.name
+#   address_prefixes     = var.jumpbox_subnet_prefixes
+# }
+
+# # Create a Subnet for Azure Bastion (for secure VM access)
+# resource "azurerm_subnet" "bastion" {
+#   name                 = var.bastion_subnet_name
+#   resource_group_name  = azurerm_resource_group.network.name
+#   virtual_network_name = azurerm_virtual_network.vnet.name
+#   address_prefixes     = var.bastion_subnet_prefixes
+# }
 
